@@ -1303,7 +1303,21 @@ Blockscad.Processor.prototype = {
    var filename = $('#project-name').val();
    // don't save without a filename.  Name isn't checked for quality.
    if (filename) {
-     saveAs(blob, filename + "." + ext);
+     //saveAs(blob, filename + "." + ext);
+     var formData = new FormData();
+     formData.append("data",blob)
+     formData.append("filename", filename + "." + ext);
+     $.ajax({
+         type: "POST",
+         url: "http://"+window.location.hostname+":3000/upload.json",
+         data: formData,
+         cache: false,
+         contentType: false,
+         processData: false,
+         success: function() {
+              alert("OK");
+         }
+     });
    }
    else {
      alert("Could not save" , this.selectedFormatInfo().displayName ," file.  Please give your project a name, then try again.");
