@@ -1305,17 +1305,21 @@ Blockscad.Processor.prototype = {
    if (filename) {
      //saveAs(blob, filename + "." + ext);
      var formData = new FormData();
-     formData.append("data",blob)
-     formData.append("filename", filename + "." + ext);
+     //formData.append("name", "file");
+     formData.append("file",blob, filename + "." + ext);
+     //formData.append("filename", filename + "." + ext);
      $.ajax({
          type: "POST",
-         url: "http://"+window.location.hostname+":3000/upload.json",
+         headers: {
+             "X-Api-Key": "6AAB1B1821D14CACA049BD01BF11F5C3",
+         },
+         url: "http://"+window.location.hostname+":5000/api/files/local",
          data: formData,
          cache: false,
          contentType: false,
          processData: false,
          success: function() {
-              alert("OK");
+              alert("Done");
          }
      });
    }
